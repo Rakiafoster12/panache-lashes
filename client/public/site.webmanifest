@@ -1,0 +1,16 @@
+{
+  "name": "Panache Lashes",
+  "short_name": "Panache",
+  "description": "Private lash studio in Troy, Michigan.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f0ec",
+  "theme_color": "#f6f0ec",
+  "icons": [
+    {
+      "src": "/manus-storage/panache-lash-symbol_a76bcc0f.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

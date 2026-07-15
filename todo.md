@@ -1,0 +1,27 @@
+# Project TODO
+
+- [x] Preserve the Codex-built Panache routes, content, responsive layout, navigation, and Square booking links
+- [x] Move original business media out of the deployable project and replace local paths with durable hosted asset URLs
+- [x] Integrate the generated Panache hero image, studio detail image, aftercare image, and lash symbol in prominent branded areas
+- [x] Adapt the Google Business profile integration to the Manus full-stack project without exposing credentials
+- [x] Restore Google business details, genuine written review objects, map, and directions with clear loading and fallback states
+- [x] Add unique titles and meta descriptions for Home, Services, About, Contact, Policies, FAQ, and Privacy routes
+- [x] Add canonical URLs, Open Graph metadata, Twitter metadata, and social preview imagery
+- [x] Add crawlable LocalBusiness and service structured data using confirmed business facts only
+- [x] Add robots.txt, sitemap.xml, web app manifest, favicon, and search-engine discovery links
+- [x] Improve semantic heading structure, landmark usage, descriptive links, image alt text, keyboard navigation, reduced-motion support, and mobile hero contrast
+- [x] Improve performance through responsive image loading, dimensions, lazy loading, and safe external-link behavior
+- [x] Add SEO and business-profile Vitest coverage and preserve the existing auth test
+- [x] Validate TypeScript, tests, production build, desktop rendering, mobile rendering, route navigation, and server logs
+- [x] Document Manus publishing, Square-domain DNS cutover, Google Search Console setup, and post-launch SEO learning steps for Rakia
+- [x] Store the existing Google Places key as the server-only GOOGLE_PLACES_API_KEY development secret without committing or exposing it
+- [x] Confirm genuine Google written review objects, rating, count, and business-profile details load from the development server
+- [x] Verify the live Google review and trust presentation at desktop, tablet, and mobile viewport sizes
+- [x] Document that the current development key must be rotated and restricted before launch
+- [x] Compare Home, Services, About, Contact, Policies, FAQ, and Privacy against the Codex source for content and route parity
+- [x] Verify desktop and mobile navigation plus every Square booking call to action before completing migration
+- [x] Replace the expired black and white hosted wordmark URLs and verify both header and footer logos render on mobile and desktop
+- [x] Replace the post-reverification Google review sync panel with quieter factual editorial trust content while preserving only live profile data
+- [x] Add the Privacy route to the sitemap and revalidate all seven public URLs
+- [x] Re-audit SSR JSON-LD, map loading/fallback states, aftercare imagery, responsive image attributes, and every Square booking CTA before checkpointing
+- [x] Audit every public-page booking CTA and prove each one uses the centralized Square URL or intentionally routes to `/services#booking`

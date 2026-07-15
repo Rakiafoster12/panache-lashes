@@ -1,6 +1,4 @@
-import { cn } from "@/lib/utils";
-import { AlertTriangle, RotateCcw } from "lucide-react";
-import { Component, ReactNode } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -12,50 +10,89 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
+  state: State = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
   }
 
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="flex items-center justify-center min-h-screen p-8 bg-background">
-          <div className="flex flex-col items-center w-full max-w-2xl p-8">
-            <AlertTriangle
-              size={48}
-              className="text-destructive mb-6 flex-shrink-0"
-            />
-
-            <h2 className="text-xl mb-4">An unexpected error occurred.</h2>
-
-            <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
-              <pre className="text-sm text-muted-foreground whitespace-break-spaces">
-                {this.state.error?.stack}
-              </pre>
-            </div>
-
-            <button
-              onClick={() => window.location.reload()}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-lg",
-                "bg-primary text-primary-foreground",
-                "hover:opacity-90 cursor-pointer"
-              )}
-            >
-              <RotateCcw size={16} />
-              Reload Page
-            </button>
-          </div>
-        </div>
-      );
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    if (import.meta.env.DEV) {
+      console.error("PANACHE application error", error, info.componentStack);
     }
+  }
 
-    return this.props.children;
+  render() {
+    if (!this.state.hasError) return this.props.children;
+
+    return (
+      <main
+        className="min-h-screen flex items-center justify-center px-6 py-16"
+        style={{ background: "var(--ivory)" }}
+      >
+        <section
+          role="alert"
+          aria-live="assertive"
+          className="w-full max-w-2xl text-center px-7 py-12 sm:px-12 sm:py-16"
+          style={{ background: "var(--blush-cream)", border: "1px solid var(--border)" }}
+        >
+          <img
+            src="/manus-storage/panache-logo-black-trimmed_b79f88ee.png"
+            alt="Panache Lashes"
+            width="1508"
+            height="438"
+            decoding="async"
+            className="mx-auto h-auto"
+            style={{ width: "min(18rem, 72vw)" }}
+          />
+          <div className="rule-gold mx-auto my-8" />
+          <p className="label-caps mb-4">A Brief Pause</p>
+          <h1
+            style={{
+              color: "var(--charcoal)",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.25rem, 7vw, 3.75rem)",
+              fontWeight: 400,
+              lineHeight: 1.08,
+            }}
+          >
+            Something went <em style={{ color: "var(--rose-gold)" }}>unexpectedly.</em>
+          </h1>
+          <p className="lede max-w-lg mx-auto mt-6">
+            The page could not finish loading. Refresh to try again, or return home and continue browsing.
+          </p>
+
+          <div className="mt-9 flex flex-col sm:flex-row justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="px-9 py-3.5 cursor-pointer"
+              style={{ background: "var(--rose-gold)", border: "1px solid var(--rose-gold)", color: "white", fontFamily: "var(--font-label)", fontSize: "1rem" }}
+            >
+              Refresh Page
+            </button>
+            <a
+              href="/"
+              className="px-9 py-3.5"
+              style={{ background: "transparent", border: "1px solid var(--border)", color: "var(--charcoal)", fontFamily: "var(--font-label)", fontSize: "1rem" }}
+            >
+              Return Home
+            </a>
+          </div>
+
+          {import.meta.env.DEV && this.state.error && (
+            <details className="mt-10 text-left">
+              <summary className="cursor-pointer" style={{ color: "var(--warm-gray)", fontFamily: "var(--font-label)" }}>
+                Development error details
+              </summary>
+              <pre className="mt-3 p-4 overflow-auto whitespace-pre-wrap text-xs" style={{ background: "white", color: "var(--charcoal)" }}>
+                {this.state.error.stack || this.state.error.message}
+              </pre>
+            </details>
+          )}
+        </section>
+      </main>
+    );
   }
 }
 
