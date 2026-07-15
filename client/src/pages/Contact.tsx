@@ -53,7 +53,7 @@ export default function Contact() {
         <section ref={heroRef} className="relative overflow-hidden" style={{ minHeight: "52vh" }}>
           <div className="absolute inset-0">
             <motion.img
-              src="/manus-storage/panache-lash-detail_cffa67f3.jpg"
+              src="/manus-storage/panache-lash-detail_cffa67f3_45dae584.jpg"
               alt="PANACHE studio — custom lash artistry"
               width="2176"
               height="1632"
@@ -166,7 +166,7 @@ export default function Contact() {
                   no box, no border */}
               <div className="mt-10 hidden lg:block relative" aria-hidden>
                 <img
-                  src="/manus-storage/panache-lash-detail_cffa67f3.jpg"
+                  src="/manus-storage/panache-brow_0b86ae66_743003cf.jpg"
                   alt=""
                   width="2176"
                   height="1632"

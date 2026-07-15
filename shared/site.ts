@@ -7,7 +7,7 @@ export const BOOKING_URL =
 export const GOOGLE_PROFILE_URL = "https://share.google/UY9kH0qs17fJcdjc7";
 export const INSTAGRAM_URL = "https://www.instagram.com/panachelashes";
 export const SOCIAL_IMAGE =
-  `${SITE_ORIGIN}/manus-storage/panache-hero-editorial_680fb83f.jpg`;
+  `${SITE_ORIGIN}/manus-storage/panache-hero-v4_2a1c96eb_ff31dd1d.jpg`;
 export const LOGO_IMAGE =
   `${SITE_ORIGIN}/manus-storage/panache-logo-black-trimmed_b79f88ee.png`;
 

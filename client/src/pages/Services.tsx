@@ -102,7 +102,7 @@ export default function Services() {
         <section ref={heroRef} className="relative overflow-hidden" style={{ minHeight: "58vh" }}>
           <div className="absolute inset-0">
             <motion.img
-              src="/manus-storage/panache-services_4d32fa4e.jpg"
+              src="/manus-storage/panache-services_4d32fa4e_c1c75c2d.jpg"
               alt="PANACHE lash artist applying extensions with precision"
               width="2304"
               height="1536"
@@ -147,7 +147,7 @@ export default function Services() {
         <section className="relative overflow-hidden" style={{ background: "var(--blush-cream)" }}>
           <div className="hidden lg:block absolute top-0 right-0 overflow-hidden" style={{ width: "34%", height: "24rem" }} aria-hidden>
             <img
-              src="/manus-storage/panache-lash-detail_cffa67f3.jpg"
+              src="/manus-storage/panache-lash-detail_cffa67f3_45dae584.jpg"
               alt=""
               width="2176"
               height="1632"

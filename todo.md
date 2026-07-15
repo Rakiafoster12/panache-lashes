@@ -25,3 +25,5 @@
 - [x] Add the Privacy route to the sitemap and revalidate all seven public URLs
 - [x] Re-audit SSR JSON-LD, map loading/fallback states, aftercare imagery, responsive image attributes, and every Square booking CTA before checkpointing
 - [x] Audit every public-page booking CTA and prove each one uses the centralized Square URL or intentionally routes to `/services#booking`
+- [x] Replace current substitute imagery with the matching original photos shown in the user-provided local reference, preserving responsive crops and intrinsic sizing
+- [x] Revalidate all affected pages at desktop and mobile widths after the original-photo swap

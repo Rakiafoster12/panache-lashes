@@ -50,7 +50,7 @@ export default function Home() {
           {/* Full-bleed background image */}
           <div className="absolute inset-0">
             <motion.img
-              src="/manus-storage/panache-hero-editorial_680fb83f.jpg"
+              src="/manus-storage/panache-hero-v4_2a1c96eb_ff31dd1d.jpg"
               alt="Close-up editorial portrait showcasing dimensional custom lash extensions by PANACHE LASHES"
               width="2560"
               height="1440"
@@ -251,7 +251,7 @@ export default function Home() {
         <section className="relative overflow-hidden" style={{ background: "oklch(0.14 0.01 300)" }}>
           <Parallax amount={40} className="absolute inset-0">
             <img
-              src="/manus-storage/panache-lash-detail_cffa67f3.jpg"
+              src="/manus-storage/panache-lash-detail_cffa67f3_45dae584.jpg"
               alt=""
               aria-hidden
               width="2176"
@@ -312,7 +312,7 @@ export default function Home() {
           <div className="hidden lg:block absolute inset-y-0 left-0 overflow-hidden" style={{ width: "52%" }} aria-hidden>
             <Parallax amount={40} className="h-full">
               <img
-                src="/manus-storage/panache-services_4d32fa4e.jpg"
+                src="/manus-storage/panache-services_4d32fa4e_c1c75c2d.jpg"
                 alt=""
                 width="2304"
                 height="1536"
@@ -343,7 +343,7 @@ export default function Home() {
           {/* Mobile: soft-edged image above the copy, no hard box */}
           <div className="lg:hidden relative" aria-hidden>
             <img
-              src="/manus-storage/panache-services_4d32fa4e.jpg"
+              src="/manus-storage/panache-services_4d32fa4e_c1c75c2d.jpg"
               alt=""
               width="2304"
               height="1536"

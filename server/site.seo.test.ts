@@ -165,7 +165,7 @@ describe("public experience safeguards", () => {
   });
 
   it("uses the retained treatment visual for factual appointment-care guidance", () => {
-    expect(faqSource).toContain("panache-lash-lift_88756f0b_b409fdc6.jpg");
+    expect(faqSource).toContain("panache-lash-lift_88756f0b_e9aa16f7.jpg");
     expect(faqSource).toContain("Thoughtful care—before, during, and after your visit.");
   });
 
