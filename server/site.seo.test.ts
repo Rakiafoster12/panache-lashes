@@ -16,6 +16,55 @@ const indexableRoutes = Object.values(ROUTE_SEO).filter(
   route => !route.noindex && route.path !== "/404"
 );
 
+describe("repository-owned Panache media", () => {
+  const publicDir = path.resolve(process.cwd(), "client/public");
+  const assetNames = [
+    "brow-closeup.png",
+    "hero.png",
+    "hybrid-closeup.png",
+    "lash-detail.png",
+    "lash-lift.png",
+    "lash-symbol.png",
+    "logo-black.png",
+    "logo-white.png",
+    "services-application.png",
+  ];
+
+  it("tracks every photograph and logo as a valid PNG", () => {
+    assetNames.forEach(assetName => {
+      const asset = fs.readFileSync(
+        path.join(publicDir, "images", "panache", assetName)
+      );
+      expect(asset.subarray(0, 8)).toEqual(
+        Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
+      );
+    });
+  });
+
+  it("keeps public visual references independent of Manus storage", () => {
+    const publicSources = [
+      "client/index.html",
+      "client/public/site.webmanifest",
+      "client/src/components/ErrorBoundary.tsx",
+      "client/src/components/Layout.tsx",
+      "client/src/components/motion.tsx",
+      "client/src/data/services.ts",
+      "client/src/pages/About.tsx",
+      "client/src/pages/Contact.tsx",
+      "client/src/pages/FAQ.tsx",
+      "client/src/pages/Home.tsx",
+      "client/src/pages/Services.tsx",
+      "shared/site.ts",
+    ];
+
+    publicSources.forEach(source => {
+      expect(fs.readFileSync(path.resolve(process.cwd(), source), "utf8")).not.toContain(
+        "/manus-storage/"
+      );
+    });
+  });
+});
+
 describe("Panache route SEO", () => {
   it("uses unique, descriptive titles and search snippets for every indexable page", () => {
     const titles = indexableRoutes.map(route => route.title);
@@ -165,7 +214,7 @@ describe("public experience safeguards", () => {
   });
 
   it("uses the retained treatment visual for factual appointment-care guidance", () => {
-    expect(faqSource).toContain("panache-lash-lift_88756f0b_e9aa16f7.jpg");
+    expect(faqSource).toContain("/images/panache/lash-lift.png");
     expect(faqSource).toContain("Thoughtful care—before, during, and after your visit.");
   });
 

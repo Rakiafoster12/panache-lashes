@@ -31,7 +31,7 @@ export default function About() {
         <section ref={heroRef} className="relative overflow-hidden" style={{ minHeight: "58vh" }}>
           <div className="absolute inset-0">
             <motion.img
-              src="/manus-storage/panache-lash-detail_cffa67f3_45dae584.jpg"
+              src="/images/panache/lash-detail.png"
               alt="PANACHE studio — lash artistry in detail"
               width="2176"
               height="1632"
@@ -77,7 +77,7 @@ export default function About() {
         <section className="relative overflow-hidden" style={{ background: "var(--blush-cream)" }}>
           <div className="hidden lg:block absolute inset-y-0 right-0 overflow-hidden" style={{ width: "30%" }} aria-hidden>
             <img
-              src="/manus-storage/panache-lash-lift_88756f0b_e9aa16f7.jpg"
+              src="/images/panache/lash-lift.png"
               alt=""
               width="1632"
               height="2176"
