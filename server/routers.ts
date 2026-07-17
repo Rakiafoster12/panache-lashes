@@ -1,20 +1,26 @@
+import { TRPCError } from "@trpc/server";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { getGoogleProfile } from "./googlePlaces";
+import {
+  ConciergeRateLimitError,
+  SlidingWindowRateLimiter,
+  conciergeInputSchema,
+  createConciergeReply,
+} from "./panacheConcierge";
+
+const conciergeRateLimiter = new SlidingWindowRateLimiter(12, 10 * 60 * 1000);
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return {
-        success: true,
-      } as const;
+      return { success: true } as const;
     }),
   }),
 
@@ -32,12 +38,26 @@ export const appRouter = router({
     }),
   }),
 
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
+  concierge: router({
+    chat: publicProcedure
+      .input(conciergeInputSchema)
+      .mutation(async ({ ctx, input }) => {
+        const ip = ctx.req.ip || ctx.req.socket.remoteAddress || "unknown";
+        try {
+          conciergeRateLimiter.check(ip);
+        } catch (error) {
+          if (error instanceof ConciergeRateLimitError) {
+            throw new TRPCError({
+              code: "TOO_MANY_REQUESTS",
+              message: error.message,
+            });
+          }
+          throw error;
+        }
+
+        return createConciergeReply(input.messages);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

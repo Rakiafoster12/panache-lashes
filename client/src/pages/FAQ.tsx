@@ -102,7 +102,7 @@ export default function FAQ() {
 
               <figure className="relative mb-7 overflow-hidden" style={{ background: "var(--blush-cream)" }}>
                 <img
-                  src="/manus-storage/panache-lash-lift_88756f0b_e9aa16f7.jpg"
+                  src="/images/panache/lash-lift.png"
                   alt="Lash treatment in progress in a calm private-studio setting"
                   width="1632"
                   height="2176"

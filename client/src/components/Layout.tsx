@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { STUDIO_SUMMARY_SERVICES } from "@/data/services";
 import { ScrollProgress, GrainOverlay, IntroReveal } from "@/components/motion";
+import PanacheConcierge from "@/components/PanacheConcierge";
 
 // PANACHE LASHES official logo — ® is part of the artwork; never add it in code
 function PanacheWordmark({
@@ -19,8 +20,8 @@ function PanacheWordmark({
 }) {
   const src =
     variant === "white"
-      ? "/manus-storage/panache-logo-white-v2_81b4b87a_cad990d6.png"
-      : "/manus-storage/panache-logo-black-trimmed_b79f88ee_633dc4c1.png";
+      ? "/images/panache/logo-white.png"
+      : "/images/panache/logo-black.png";
   return (
     <img
       src={src}
@@ -72,16 +73,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Intro curtain: home page only, fresh page load only (never on client-side nav) */}
       {location === "/" && <IntroReveal />}
       <GrainOverlay />
+      <PanacheConcierge />
       {/* Navigation — solid ivory so the black logo always has contrast */}
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          background: scrolled ? "oklch(0.975 0.008 75 / 0.94)" : "var(--ivory)",
+          background: scrolled
+            ? "oklch(0.975 0.008 75 / 0.94)"
+            : "var(--ivory)",
           backdropFilter: scrolled ? "blur(12px)" : "none",
           borderBottom: scrolled
             ? "1px solid var(--border)"
             : "1px solid oklch(0.92 0.010 65)",
-          boxShadow: scrolled ? "0 2px 24px oklch(0.22 0.01 65 / 0.06)" : "none",
+          boxShadow: scrolled
+            ? "0 2px 24px oklch(0.22 0.01 65 / 0.06)"
+            : "none",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-28 flex items-center justify-between">
@@ -91,7 +97,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-7">
-            {navLinks.map((link) => (
+            {navLinks.map(link => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -99,7 +105,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className="relative text-[1.1875rem] tracking-[0.04em] transition-colors duration-300"
                 style={{
                   fontFamily: "var(--font-label)",
-                  color: location === link.href ? "var(--rose-gold)" : "var(--charcoal)",
+                  color:
+                    location === link.href
+                      ? "var(--rose-gold)"
+                      : "var(--charcoal)",
                   fontWeight: 500,
                 }}
               >
@@ -124,13 +133,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 color: "oklch(0.99 0.005 80)",
                 border: "1px solid var(--rose-gold)",
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "transparent";
-                (e.currentTarget as HTMLElement).style.color = "var(--rose-gold)";
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background =
+                  "transparent";
+                (e.currentTarget as HTMLElement).style.color =
+                  "var(--rose-gold)";
               }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "var(--rose-gold)";
-                (e.currentTarget as HTMLElement).style.color = "oklch(0.99 0.005 80)";
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background =
+                  "var(--rose-gold)";
+                (e.currentTarget as HTMLElement).style.color =
+                  "oklch(0.99 0.005 80)";
               }}
             >
               Book Now
@@ -141,26 +154,82 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <button
             className="lg:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              menuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
           >
-            <span className="block w-6 h-px transition-all duration-300" style={{ background: "var(--charcoal)", transform: menuOpen ? "rotate(45deg) translate(3px, 3px)" : "none" }} />
-            <span className="block w-4 h-px transition-all duration-300" style={{ background: "var(--charcoal)", opacity: menuOpen ? 0 : 1 }} />
-            <span className="block w-6 h-px transition-all duration-300" style={{ background: "var(--charcoal)", transform: menuOpen ? "rotate(-45deg) translate(3px, -3px)" : "none" }} />
+            <span
+              className="block w-6 h-px transition-all duration-300"
+              style={{
+                background: "var(--charcoal)",
+                transform: menuOpen
+                  ? "rotate(45deg) translate(3px, 3px)"
+                  : "none",
+              }}
+            />
+            <span
+              className="block w-4 h-px transition-all duration-300"
+              style={{
+                background: "var(--charcoal)",
+                opacity: menuOpen ? 0 : 1,
+              }}
+            />
+            <span
+              className="block w-6 h-px transition-all duration-300"
+              style={{
+                background: "var(--charcoal)",
+                transform: menuOpen
+                  ? "rotate(-45deg) translate(3px, -3px)"
+                  : "none",
+              }}
+            />
           </button>
         </div>
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div id="mobile-navigation" className="lg:hidden border-t" style={{ background: "oklch(0.975 0.008 75 / 0.98)", borderColor: "var(--border)" }}>
-            <nav aria-label="Mobile navigation" className="flex flex-col px-6 py-6 gap-6">
-              {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} aria-current={location === link.href ? "page" : undefined} className="text-[1.25rem]" style={{ fontFamily: "var(--font-label)", color: location === link.href ? "var(--rose-gold)" : "var(--charcoal)", fontWeight: 500 }}>
-              {link.label}
-            </Link>
-            ))}
-              <Link href="/services#booking" className="inline-block px-6 py-3.5 text-[1.0625rem] tracking-[0.06em] text-center" style={{ background: "var(--rose-gold)", color: "oklch(0.99 0.005 80)", fontFamily: "var(--font-label)", fontWeight: 600 }}>
+          <div
+            id="mobile-navigation"
+            className="lg:hidden border-t"
+            style={{
+              background: "oklch(0.975 0.008 75 / 0.98)",
+              borderColor: "var(--border)",
+            }}
+          >
+            <nav
+              aria-label="Mobile navigation"
+              className="flex flex-col px-6 py-6 gap-6"
+            >
+              {navLinks.map(link => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={location === link.href ? "page" : undefined}
+                  className="text-[1.25rem]"
+                  style={{
+                    fontFamily: "var(--font-label)",
+                    color:
+                      location === link.href
+                        ? "var(--rose-gold)"
+                        : "var(--charcoal)",
+                    fontWeight: 500,
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="/services#booking"
+                className="inline-block px-6 py-3.5 text-[1.0625rem] tracking-[0.06em] text-center"
+                style={{
+                  background: "var(--rose-gold)",
+                  color: "oklch(0.99 0.005 80)",
+                  fontFamily: "var(--font-label)",
+                  fontWeight: 600,
+                }}
+              >
                 Book Now
               </Link>
             </nav>
@@ -179,7 +248,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-14">
             <div>
               <img
-                src="/manus-storage/panache-lash-symbol_a76bcc0f.png"
+                src="/images/panache/lash-symbol.png"
                 alt=""
                 aria-hidden="true"
                 width="72"
@@ -187,9 +256,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 loading="lazy"
                 className="mb-5 h-16 w-16 object-contain opacity-90"
               />
-              <div className="mb-6"><PanacheWordmark variant="white" size="4.5rem" /></div>
-              <p className="leading-relaxed mb-6" style={{ color: "oklch(0.72 0.012 60)", fontFamily: "var(--font-sans)", fontSize: "1rem" }}>
-                Luxury lash artistry.<br />Every lash, intentional.
+              <div className="mb-6">
+                <PanacheWordmark variant="white" size="4.5rem" />
+              </div>
+              <p
+                className="leading-relaxed mb-6"
+                style={{
+                  color: "oklch(0.72 0.012 60)",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "1rem",
+                }}
+              >
+                Luxury lash artistry.
+                <br />
+                Every lash, intentional.
               </p>
               <span className="label-caps">Reg. No. 6284886</span>
             </div>
@@ -197,37 +277,126 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <p className="label-caps mb-6">Services</p>
               <ul className="space-y-3.5">
                 {STUDIO_SUMMARY_SERVICES.map(service => (
-                  <li key={service.id} style={{ color: "oklch(0.72 0.012 60)", fontFamily: "var(--font-sans)", fontSize: "1rem" }}>{service.name}</li>
+                  <li
+                    key={service.id}
+                    style={{
+                      color: "oklch(0.72 0.012 60)",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    {service.name}
+                  </li>
                 ))}
               </ul>
             </div>
             <div>
               <p className="label-caps mb-6">Find Us</p>
-              <address className="not-italic leading-loose" style={{ color: "oklch(0.72 0.012 60)", fontFamily: "var(--font-sans)", fontSize: "1rem" }}>
-                PANACHE LASHES LLC<br />901 Tower Dr, Suite 420<br />Troy, MI 48098<br />
-                <a href="tel:+12484948594" className="transition-colors duration-300 hover:text-white">(248) 494-8594</a><br />
-                <a href="mailto:info@panachelashes.com" className="transition-colors duration-300 hover:text-white">info@panachelashes.com</a><br />
-                <a href="https://www.instagram.com/panachelashes" target="_blank" rel="noreferrer" className="transition-colors duration-300 hover:text-white">@panachelashes on Instagram</a><br /><br />
-                <Link href="/services#booking" className="transition-colors duration-300" style={{ color: "var(--rose-gold-muted)" }}>
+              <address
+                className="not-italic leading-loose"
+                style={{
+                  color: "oklch(0.72 0.012 60)",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "1rem",
+                }}
+              >
+                PANACHE LASHES LLC
+                <br />
+                901 Tower Dr, Suite 420
+                <br />
+                Troy, MI 48098
+                <br />
+                <a
+                  href="tel:+12484948594"
+                  className="transition-colors duration-300 hover:text-white"
+                >
+                  (248) 494-8594
+                </a>
+                <br />
+                <a
+                  href="mailto:info@panachelashes.com"
+                  className="transition-colors duration-300 hover:text-white"
+                >
+                  info@panachelashes.com
+                </a>
+                <br />
+                <a
+                  href="https://www.instagram.com/panachelashes"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="transition-colors duration-300 hover:text-white"
+                >
+                  @panachelashes on Instagram
+                </a>
+                <br />
+                <br />
+                <Link
+                  href="/services#booking"
+                  className="transition-colors duration-300"
+                  style={{ color: "var(--rose-gold-muted)" }}
+                >
                   Reserve an appointment →
                 </Link>
               </address>
             </div>
           </div>
-          <div className="mt-14 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-t" style={{ borderColor: "oklch(0.28 0.01 300)" }}>
-            <p className="text-sm" style={{ color: "oklch(0.55 0.010 60)", fontFamily: "var(--font-sans)" }}>
-              © {new Date().getFullYear()} PANACHE LASHES LLC. All rights reserved.
+          <div
+            className="mt-14 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-t"
+            style={{ borderColor: "oklch(0.28 0.01 300)" }}
+          >
+            <p
+              className="text-sm"
+              style={{
+                color: "oklch(0.55 0.010 60)",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              © {new Date().getFullYear()} PANACHE LASHES LLC. All rights
+              reserved.
             </p>
-            <p className="text-sm" style={{ color: "oklch(0.55 0.010 60)", fontFamily: "var(--font-sans)" }}>
+            <p
+              className="text-sm"
+              style={{
+                color: "oklch(0.55 0.010 60)",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               PANACHE® is a registered service mark — US Reg. No. 6284886
             </p>
-            <Link href="/policies" className="text-sm" style={{ color: "var(--rose-gold-muted)", fontFamily: "var(--font-label)", textDecoration: "underline", textUnderlineOffset: "4px" }}>
+            <Link
+              href="/policies"
+              className="text-sm"
+              style={{
+                color: "var(--rose-gold-muted)",
+                fontFamily: "var(--font-label)",
+                textDecoration: "underline",
+                textUnderlineOffset: "4px",
+              }}
+            >
               Booking Policies
             </Link>
-            <Link href="/faq" className="text-sm" style={{ color: "var(--rose-gold-muted)", fontFamily: "var(--font-label)", textDecoration: "underline", textUnderlineOffset: "4px" }}>
+            <Link
+              href="/faq"
+              className="text-sm"
+              style={{
+                color: "var(--rose-gold-muted)",
+                fontFamily: "var(--font-label)",
+                textDecoration: "underline",
+                textUnderlineOffset: "4px",
+              }}
+            >
               FAQ
             </Link>
-            <Link href="/privacy" className="text-sm" style={{ color: "var(--rose-gold-muted)", fontFamily: "var(--font-label)", textDecoration: "underline", textUnderlineOffset: "4px" }}>
+            <Link
+              href="/privacy"
+              className="text-sm"
+              style={{
+                color: "var(--rose-gold-muted)",
+                fontFamily: "var(--font-label)",
+                textDecoration: "underline",
+                textUnderlineOffset: "4px",
+              }}
+            >
               Privacy
             </Link>
           </div>

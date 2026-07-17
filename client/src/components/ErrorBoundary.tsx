@@ -37,7 +37,7 @@ class ErrorBoundary extends Component<Props, State> {
           style={{ background: "var(--blush-cream)", border: "1px solid var(--border)" }}
         >
           <img
-            src="/manus-storage/panache-logo-black-trimmed_b79f88ee.png"
+            src="/images/panache/logo-black.png"
             alt="Panache Lashes"
             width="1508"
             height="438"

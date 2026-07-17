@@ -634,7 +634,7 @@ function MaskedRiseLogo({ reduced }: { reduced: boolean }) {
   return (
     <span style={{ display: "block", overflow: risen ? "visible" : "hidden" }}>
       <motion.img
-        src="/manus-storage/panache-logo-black-trimmed_b79f88ee_633dc4c1.png"
+        src="/images/panache/logo-black.png"
         alt="PANACHE LASHES®"
         width="1508"
         height="438"

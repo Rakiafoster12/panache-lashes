@@ -10,7 +10,7 @@ The repository README describes Panache Lashes as a private lash studio in Troy,
 
 The repository uses React 19, TypeScript, Vite, Tailwind CSS, Framer Motion, Wouter, and an Express production server. Its route list is Home, Services, About, Contact, Policies, FAQ, Privacy, and Not Found. The code references a server-side `/api/google-profile` integration that caches Google Places data and keeps the API credential off the browser.
 
-The tracked frontend includes the following original business media under `client/public/manus-storage/`: `panache-hero-v4_2a1c96eb.jpg`, `panache-services_4d32fa4e.jpg`, `panache-lash-detail_cffa67f3.jpg`, `panache-hybrid-closeup_71943c7a.jpg`, `panache-lash-lift_88756f0b.jpg`, `panache-brow_0b86ae66.jpg`, `panache-logo-black-trimmed_b79f88ee.png`, `panache-logo-white-v2_81b4b87a.png`, and `panache-logo-icon.png`.
+The tracked frontend includes the original business media under `client/public/images/panache/`: `hero.png`, `services-application.png`, `lash-detail.png`, `hybrid-closeup.png`, `lash-lift.png`, `brow-closeup.png`, `logo-black.png`, `logo-white.png`, and `lash-symbol.png`.
 
 ## Migration Constraints
 

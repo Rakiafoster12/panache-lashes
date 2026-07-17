@@ -4,13 +4,30 @@
 
 The website is configured for **https://panachelashes.com**. Appointment calls to action continue to open the existing Square Appointments flow, so publishing this website does not replace or interrupt Square booking.
 
-| Area | Final configuration |
-|---|---|
-| Public website | `https://panachelashes.com` |
-| Booking | Existing Square Appointments booking URL |
-| Google profile | Reverified PANACHE LASHES profile linked from the website |
+| Area             | Final configuration                                                                                                     |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Public website   | `https://panachelashes.com`                                                                                             |
+| Booking          | Existing Square Appointments booking URL                                                                                |
+| Google profile   | Reverified PANACHE LASHES profile linked from the website                                                               |
 | Search discovery | `robots.txt`, `sitemap.xml`, canonical tags, route metadata, social metadata, and LocalBusiness/service structured data |
-| Public routes | Home, Services, About, Contact, Policies, FAQ, and Privacy |
+| Public routes    | Home, Services, About, Contact, Policies, FAQ, and Privacy                                                              |
+
+## Development environment secrets
+
+The Google profile and optional Panache Concierge use server-side secrets. Add
+these in Manus project settings or a local `.env` file; never place their
+values in browser code or commit them to GitHub.
+
+```env
+GOOGLE_PLACES_API_KEY=your_google_places_key
+OPENAI_API_KEY=your_openai_api_key
+OPENAI_CHAT_MODEL=gpt-5.6-luna
+```
+
+`OPENAI_CHAT_MODEL` is optional and defaults to `gpt-5.6-luna`. Start locally by
+copying `.env.example` to the ignored `.env` file. The concierge
+remains visible without an OpenAI key but responds with the studio's direct
+contact fallback until the key is configured.
 
 ## 1. Publish from Manus
 
@@ -24,15 +41,15 @@ Square’s current domain controls are under **Square Dashboard → Channels →
 
 Before saving any change, take a screenshot or export a copy of the existing DNS records. Preserve all **MX**, email-verification, DKIM, SPF, and other unrelated TXT records. Do not cancel the Square domain or Square Appointments service.
 
-| Cutover step | Owner check |
-|---|---|
-| Add the custom domain in Manus | Manus displays the required DNS record values |
-| Back up current Square DNS | Screenshot or copy every existing record |
-| Replace only web records | Update only the A/CNAME records specified by Manus |
-| Preserve email records | MX, SPF, DKIM, and email TXT records remain unchanged |
-| Verify both hostnames | `panachelashes.com` and `www.panachelashes.com` resolve to the published site or redirect consistently |
-| Confirm HTTPS | The browser shows a secure connection after certificate provisioning |
-| Confirm booking | Every booking button still opens the Square Appointments page |
+| Cutover step                   | Owner check                                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| Add the custom domain in Manus | Manus displays the required DNS record values                                                          |
+| Back up current Square DNS     | Screenshot or copy every existing record                                                               |
+| Replace only web records       | Update only the A/CNAME records specified by Manus                                                     |
+| Preserve email records         | MX, SPF, DKIM, and email TXT records remain unchanged                                                  |
+| Verify both hostnames          | `panachelashes.com` and `www.panachelashes.com` resolve to the published site or redirect consistently |
+| Confirm HTTPS                  | The browser shows a secure connection after certificate provisioning                                   |
+| Confirm booking                | Every booking button still opens the Square Appointments page                                          |
 
 Avoid changing nameservers unless Manus explicitly requires it and all email records have been inventoried. The lower-risk route is to keep Square as the registrar/DNS manager and point only the website records.
 
@@ -50,15 +67,15 @@ Once the published domain is live:
 
 The initial inspection list is:
 
-| Page | URL |
-|---|---|
-| Home | `https://panachelashes.com/` |
+| Page     | URL                                  |
+| -------- | ------------------------------------ |
+| Home     | `https://panachelashes.com/`         |
 | Services | `https://panachelashes.com/services` |
-| About | `https://panachelashes.com/about` |
-| Contact | `https://panachelashes.com/contact` |
+| About    | `https://panachelashes.com/about`    |
+| Contact  | `https://panachelashes.com/contact`  |
 | Policies | `https://panachelashes.com/policies` |
-| FAQ | `https://panachelashes.com/faq` |
-| Privacy | `https://panachelashes.com/privacy` |
+| FAQ      | `https://panachelashes.com/faq`      |
+| Privacy  | `https://panachelashes.com/privacy`  |
 
 ## 4. Rotate and restrict the Google Places key
 
@@ -72,19 +89,19 @@ The final post-reverification response provides the verified business name, Troy
 
 Complete this pass after DNS resolves and before announcing the new site:
 
-| Check | Expected result |
-|---|---|
-| Homepage and six supporting routes | Load over HTTPS with no redirect loop |
-| Mobile navigation | Opens, closes, identifies the current page, and reaches all routes by keyboard |
-| Wordmarks and editorial images | Render in the header, hero, service sections, and footer |
-| Google trust section | Shows live rating/count and links to the verified profile |
-| Contact map | Loads the PANACHE LASHES location after entering the viewport |
-| Directions form | Opens directions without exposing private information |
-| Square booking links | Open the existing appointment flow in a new tab; complete one manual test booking up to the confirmation step without submitting |
-| `robots.txt` | Loads publicly |
-| `sitemap.xml` | Lists the seven canonical routes |
-| Social preview | Uses the Panache editorial hero image |
-| Unknown URL | Returns a true 404 response with `noindex` metadata |
+| Check                              | Expected result                                                                                                                  |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Homepage and six supporting routes | Load over HTTPS with no redirect loop                                                                                            |
+| Mobile navigation                  | Opens, closes, identifies the current page, and reaches all routes by keyboard                                                   |
+| Wordmarks and editorial images     | Render in the header, hero, service sections, and footer                                                                         |
+| Google trust section               | Shows live rating/count and links to the verified profile                                                                        |
+| Contact map                        | Loads the PANACHE LASHES location after entering the viewport                                                                    |
+| Directions form                    | Opens directions without exposing private information                                                                            |
+| Square booking links               | Open the existing appointment flow in a new tab; complete one manual test booking up to the confirmation step without submitting |
+| `robots.txt`                       | Loads publicly                                                                                                                   |
+| `sitemap.xml`                      | Lists the seven canonical routes                                                                                                 |
+| Social preview                     | Uses the Panache editorial hero image                                                                                            |
+| Unknown URL                        | Returns a true 404 response with `noindex` metadata                                                                              |
 
 ## 6. First-month SEO learning plan
 

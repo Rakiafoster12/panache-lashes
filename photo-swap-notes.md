@@ -17,9 +17,9 @@ The complete six-photo original set is now mapped. The homepage hero should retu
 
 | Original asset | Hosted path |
 |---|---|
-| Hero portrait | `/manus-storage/panache-hero-v4_2a1c96eb_ff31dd1d.jpg` |
-| Services application | `/manus-storage/panache-services_4d32fa4e_c1c75c2d.jpg` |
-| Hybrid close-up | `/manus-storage/panache-hybrid-closeup_71943c7a_b0b8a298.jpg` |
-| Lash-detail macro | `/manus-storage/panache-lash-detail_cffa67f3_45dae584.jpg` |
-| Lash-lift treatment | `/manus-storage/panache-lash-lift_88756f0b_e9aa16f7.jpg` |
-| Brow close-up | `/manus-storage/panache-brow_0b86ae66_743003cf.jpg` |
+| Hero portrait | `/images/panache/hero.png` |
+| Services application | `/images/panache/services-application.png` |
+| Hybrid close-up | `/images/panache/hybrid-closeup.png` |
+| Lash-detail macro | `/images/panache/lash-detail.png` |
+| Lash-lift treatment | `/images/panache/lash-lift.png` |
+| Brow close-up | `/images/panache/brow-closeup.png` |

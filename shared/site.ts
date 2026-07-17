@@ -7,9 +7,9 @@ export const BOOKING_URL =
 export const GOOGLE_PROFILE_URL = "https://share.google/UY9kH0qs17fJcdjc7";
 export const INSTAGRAM_URL = "https://www.instagram.com/panachelashes";
 export const SOCIAL_IMAGE =
-  `${SITE_ORIGIN}/manus-storage/panache-hero-v4_2a1c96eb_ff31dd1d.jpg`;
+  `${SITE_ORIGIN}/images/panache/hero.png`;
 export const LOGO_IMAGE =
-  `${SITE_ORIGIN}/manus-storage/panache-logo-black-trimmed_b79f88ee.png`;
+  `${SITE_ORIGIN}/images/panache/logo-black.png`;
 
 export type RouteSeo = {
   title: string;
