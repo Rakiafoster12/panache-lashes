@@ -32,7 +32,7 @@ export function buildHeadTags(meta: RouteSeo) {
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": meta.path === "/" ? "WebSite" : "WebPage",
-    name: meta.title,
+    name: meta.path === "/" ? SITE_NAME : meta.title,
     description: meta.description,
     url: canonical,
     isPartOf: meta.path === "/" ? undefined : { "@type": "WebSite", name: SITE_NAME, url: SITE_ORIGIN },

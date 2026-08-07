@@ -25,7 +25,7 @@ const SECTIONS = [
   },
   {
     title: "Analytics & Tracking",
-    text: "PANACHE does not currently run a website analytics service, advertising pixel, or behavioral tracking tool on this site. The site does not sell personal information. Third-party services you choose to open, including Google, Square, and Instagram, operate under their own privacy policies.",
+    text: "This website may use Manus-hosted analytics to understand aggregate website traffic and performance. PANACHE does not sell personal information. Third-party services you choose to open, including Google, Square, and Instagram, operate under their own privacy policies.",
   },
   {
     title: "Retention & Your Choices",
