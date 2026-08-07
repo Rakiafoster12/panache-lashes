@@ -129,13 +129,15 @@ export default function Services() {
             >
               <p className="label-caps mb-6" style={{ marginLeft: "0.2em" }}>PANACHE® Studio · Service Menu</p>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(3.15rem, 7vw, 5.25rem)", lineHeight: 1.03, color: "var(--charcoal)", overflowWrap: "normal", wordBreak: "keep-all", textWrap: "balance", paddingBottom: "0.08em" }}>
-                Our <em style={{ color: "var(--rose-gold)" }}>Services</em>
+                Lash Extension <em style={{ color: "var(--rose-gold)" }}>Services in Troy</em>
               </h1>
               <DrawRule className="my-7" />
               <p className="lede max-w-lg">
-                Select any service below to book your appointment directly — or scroll
-                to the live booking calendar to browse all options. Every treatment is rendered
-                by reservation, one client at a time.
+                Explore classic lash extensions, hybrid lash extensions, volume lash extensions,
+                wispy or bespoke lash extensions, lash fills, and professional lash extension
+                removal below. Select a service to book directly—or continue to the live booking
+                calendar to compare options. Every appointment is private, by reservation, and
+                centered on one client at a time.
               </p>
             </motion.div>
           </div>

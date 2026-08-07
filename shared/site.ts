@@ -1,7 +1,7 @@
 export const SITE_NAME = "Panache Lashes";
 export const SITE_ORIGIN = "https://panachelashes.com";
 export const SITE_DESCRIPTION =
-  "Private lash studio in Troy, Michigan specializing in custom lash extensions, lash lifts, and brow services in a calm one-on-one setting.";
+  "Private lash studio in Troy, Michigan specializing in custom classic, hybrid, volume, and bespoke lash extensions, fills, and professional removal.";
 export const BOOKING_URL =
   "https://app.squareup.com/appointments/book/p6qbb24g2jl9v7/SMVH39DTRX7YB/start";
 export const GOOGLE_PROFILE_URL = "https://share.google/UY9kH0qs17fJcdjc7";
@@ -22,13 +22,13 @@ export const ROUTE_SEO: Record<string, RouteSeo> = {
   "/": {
     title: "Luxury Lash Extensions in Troy, MI | Panache Lashes",
     description:
-      "Visit Panache Lashes, a private Troy, MI lash studio for custom classic, hybrid, and volume extensions, lash lifts, and brow services.",
+      "Visit Panache Lashes, a private Troy, MI studio for custom classic, hybrid, volume, and bespoke lash extensions, fills, and professional removal.",
     path: "/",
   },
   "/services": {
     title: "Lash Services & Pricing in Troy, MI | Panache Lashes",
     description:
-      "Explore custom lash extensions, fills, lash lifts, brow services, timing, pricing, and appointment guidance at Panache Lashes in Troy, Michigan.",
+      "Explore classic, hybrid, volume, and bespoke lash extensions, fills, professional removal, timing, pricing, and booking guidance in Troy, Michigan.",
     path: "/services",
   },
   "/about": {
@@ -52,7 +52,7 @@ export const ROUTE_SEO: Record<string, RouteSeo> = {
   "/faq": {
     title: "Lash Extension FAQ & Aftercare | Panache Lashes",
     description:
-      "Get answers about lash extensions, fills, retention, preparation, aftercare, lash lifts, and choosing a service at Panache Lashes in Troy, MI.",
+      "Get answers about lash extensions, fills, retention, preparation, aftercare, patch tests, and choosing a service at Panache Lashes in Troy, MI.",
     path: "/faq",
   },
   "/privacy": {
@@ -91,6 +91,7 @@ export const LOCAL_BUSINESS_JSON_LD = {
   "@type": "BeautySalon",
   "@id": `${SITE_ORIGIN}/#business`,
   name: SITE_NAME,
+  legalName: "PANACHE LASHES LLC",
   url: SITE_ORIGIN,
   image: SOCIAL_IMAGE,
   logo: LOGO_IMAGE,
@@ -124,14 +125,16 @@ export const LOCAL_BUSINESS_JSON_LD = {
   },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Lash and brow services",
+    name: "Panache lash services",
     itemListElement: [
-      "Classic lash extensions",
-      "Hybrid lash extensions",
-      "Volume lash extensions",
-      "Lash fills",
-      "Lash lifts",
-      "Brow services",
+      "The Refined Edit",
+      "The Panache Full Set",
+      "The Bespoke Set",
+      "The Fill",
+      "The Express Fill",
+      "The Consultation",
+      "Patch Test",
+      "Lash Extension Removal",
     ].map(name => ({
       "@type": "Offer",
       itemOffered: { "@type": "Service", name },

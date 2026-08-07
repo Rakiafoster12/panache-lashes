@@ -302,7 +302,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               >
                 PANACHE LASHES LLC
                 <br />
-                901 Tower Dr, Suite 420
+                901 Tower Drive, Suite 420
                 <br />
                 Troy, MI 48098
                 <br />

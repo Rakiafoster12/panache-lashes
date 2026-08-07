@@ -3,10 +3,12 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { render } from "../client/src/entry-server";
 import { buildHeadTags } from "../client/src/ssr/head";
+import { SERVICES } from "../client/src/data/services";
 import {
   BOOKING_URL,
   LOCAL_BUSINESS_JSON_LD,
   ROUTE_SEO,
+  SITE_DESCRIPTION,
   SITE_ORIGIN,
   getRouteSeo,
   isKnownPublicRoute,
@@ -15,6 +17,11 @@ import {
 const indexableRoutes = Object.values(ROUTE_SEO).filter(
   route => !route.noindex && route.path !== "/404"
 );
+
+function primaryHeadingText(html: string) {
+  const heading = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "";
+  return heading.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+}
 
 describe("repository-owned Panache media", () => {
   const publicDir = path.resolve(process.cwd(), "client/public");
@@ -90,6 +97,22 @@ describe("Panache route SEO", () => {
     expect(head).toContain('type="application/ld+json"');
   });
 
+  it("keeps public metadata limited to services in the current catalog", () => {
+    const publicMetadata = JSON.stringify({
+      siteDescription: SITE_DESCRIPTION,
+      routes: ROUTE_SEO,
+      business: LOCAL_BUSINESS_JSON_LD,
+    }).toLowerCase();
+
+    expect(publicMetadata).not.toContain("lash lift");
+    expect(publicMetadata).not.toContain("brow service");
+  });
+
+  it("uses the Panache Lashes brand name for WebSite structured data", () => {
+    const head = buildHeadTags(getRouteSeo("/"));
+    expect(head).toContain('"@type":"WebSite","name":"Panache Lashes"');
+  });
+
   it("indexes public pages and keeps missing pages out of search results", () => {
     expect(buildHeadTags(getRouteSeo("/privacy"))).toContain("index, follow");
     expect(buildHeadTags(getRouteSeo("/not-a-real-page"))).toContain("noindex, nofollow");
@@ -100,6 +123,7 @@ describe("Panache route SEO", () => {
 describe("Panache local business structured data", () => {
   it("contains only confirmed contact, location, and booking facts", () => {
     expect(LOCAL_BUSINESS_JSON_LD["@type"]).toBe("BeautySalon");
+    expect(LOCAL_BUSINESS_JSON_LD.legalName).toBe("PANACHE LASHES LLC");
     expect(LOCAL_BUSINESS_JSON_LD.telephone).toBe("+1-248-494-8594");
     expect(LOCAL_BUSINESS_JSON_LD.address).toMatchObject({
       streetAddress: "901 Tower Drive, Suite 420",
@@ -110,6 +134,15 @@ describe("Panache local business structured data", () => {
     expect(LOCAL_BUSINESS_JSON_LD.potentialAction.target).toBe(BOOKING_URL);
     expect(LOCAL_BUSINESS_JSON_LD).not.toHaveProperty("review");
     expect(LOCAL_BUSINESS_JSON_LD).not.toHaveProperty("aggregateRating");
+  });
+
+  it("matches the structured offer catalog to every current service", () => {
+    const offeredServices = LOCAL_BUSINESS_JSON_LD.hasOfferCatalog.itemListElement.map(
+      offer => offer.itemOffered.name
+    );
+
+    expect(LOCAL_BUSINESS_JSON_LD.hasOfferCatalog.name).toBe("Panache lash services");
+    expect(offeredServices).toEqual(SERVICES.map(service => service.name));
   });
 });
 
@@ -167,6 +200,11 @@ describe("responsive editorial presentation", () => {
     expect(layoutSource).toContain('aria-current={location === link.href ? "page" : undefined}');
     expect(layoutSource).toContain('aria-label="Mobile navigation"');
   });
+
+  it("uses the standard Tower Drive address in the shared footer", () => {
+    expect(layoutSource).toContain("901 Tower Drive, Suite 420");
+    expect(layoutSource).not.toContain("901 Tower Dr, Suite 420");
+  });
 });
 
 describe("public experience safeguards", () => {
@@ -206,6 +244,10 @@ describe("public experience safeguards", () => {
     path.resolve(process.cwd(), "client/src/pages/Services.tsx"),
     "utf8"
   );
+  const privacySource = fs.readFileSync(
+    path.resolve(process.cwd(), "client/src/pages/Privacy.tsx"),
+    "utf8"
+  );
 
   it("provides map loading, error, and direct Google Maps fallback states", () => {
     expect(mapSource).toContain('role="status"');
@@ -216,6 +258,29 @@ describe("public experience safeguards", () => {
   it("uses the retained treatment visual for factual appointment-care guidance", () => {
     expect(faqSource).toContain("/images/panache/lash-lift.png");
     expect(faqSource).toContain("Thoughtful care—before, during, and after your visit.");
+  });
+
+  it("uses the approved service-count and analytics disclosures", () => {
+    expect(homeSource).toContain("Eight services, one standard.");
+    expect(homeSource).not.toContain("Ten treatments, one standard.");
+    expect(privacySource).toContain("may use Manus-hosted analytics");
+    expect(privacySource).not.toContain("does not currently run a website analytics service");
+  });
+
+  it("introduces each approved plain-language service phrase once", async () => {
+    const result = await render("/services");
+    const visibleText = result.html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+
+    [
+      "classic lash extensions",
+      "hybrid lash extensions",
+      "volume lash extensions",
+      "wispy or bespoke lash extensions",
+      "lash fills",
+      "professional lash extension removal",
+    ].forEach(phrase => {
+      expect(visibleText.match(new RegExp(phrase, "g"))?.length).toBe(1);
+    });
   });
 
   it("routes every public booking CTA through the shared Square destination or the intentional booking section", () => {
@@ -260,6 +325,16 @@ describe("crawler-visible server rendering", () => {
       expect(result.headTags).toContain(getRouteSeo(route).title.replaceAll("&", "&amp;"));
     }
   );
+
+  it("serializes the homepage H1 with intentional spacing", async () => {
+    const result = await render("/");
+    expect(primaryHeadingText(result.html)).toBe("Every lash, intentional.");
+  });
+
+  it("uses the approved Services page H1", async () => {
+    const result = await render("/services");
+    expect(primaryHeadingText(result.html)).toBe("Lash Extension Services in Troy");
+  });
 
   it("returns a noindex 404 payload for unknown paths", async () => {
     const result = await render("/missing-route");

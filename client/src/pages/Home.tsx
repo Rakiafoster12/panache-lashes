@@ -117,7 +117,7 @@ export default function Home() {
                   onMount
                   lineStyle={{ paddingBottom: "0.12em", marginBottom: "-0.1em" }}
                   lines={[
-                    <>Every lash,</>,
+                    <>Every lash,{" "}</>,
                     <em key="i" style={{ color: "var(--rose-gold)", display: "block", fontFamily: "var(--font-label)", fontStyle: "italic", fontWeight: 400, marginTop: "-0.02em" }}>intentional.</em>,
                   ]}
                 />
@@ -206,7 +206,7 @@ export default function Home() {
               </Reveal>
               <Reveal className="lg:col-span-5" delay={0.12}>
                 <p className="lede">
-                  Ten treatments, one standard. Each service is rendered with medical-grade
+                  Eight services, one standard. Each service is rendered with medical-grade
                   adhesives, premium silk fibers, and an artist's eye.
                 </p>
                 <Link
