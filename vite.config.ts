@@ -3,7 +3,13 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
-import { defineConfig, type Plugin, type ViteDevServer } from "vite";
+import {
+  defineConfig,
+  loadEnv,
+  type HtmlTagDescriptor,
+  type Plugin,
+  type ViteDevServer,
+} from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 // =============================================================================
@@ -150,7 +156,53 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+export function getOptionalAnalyticsTag(
+  endpointValue?: string,
+  websiteIdValue?: string
+): HtmlTagDescriptor | null {
+  const endpoint = endpointValue?.trim().replace(/\/+$/, "");
+  const websiteId = websiteIdValue?.trim();
+
+  if (!endpoint || !websiteId) return null;
+
+  return {
+    tag: "script",
+    attrs: {
+      defer: true,
+      src: `${endpoint}/umami`,
+      "data-website-id": websiteId,
+      "data-panache-analytics": "true",
+    },
+    injectTo: "body",
+  };
+}
+
+function vitePluginOptionalAnalytics(): Plugin {
+  let analyticsTag: HtmlTagDescriptor | null = null;
+
+  return {
+    name: "panache-optional-analytics",
+    configResolved(config) {
+      const fileEnv = loadEnv(config.mode, PROJECT_ROOT, "");
+      analyticsTag = getOptionalAnalyticsTag(
+        process.env.VITE_ANALYTICS_ENDPOINT ?? fileEnv.VITE_ANALYTICS_ENDPOINT,
+        process.env.VITE_ANALYTICS_WEBSITE_ID ?? fileEnv.VITE_ANALYTICS_WEBSITE_ID
+      );
+    },
+    transformIndexHtml() {
+      return analyticsTag ? [analyticsTag] : [];
+    },
+  };
+}
+
+const plugins = [
+  react(),
+  tailwindcss(),
+  jsxLocPlugin(),
+  vitePluginManusRuntime(),
+  vitePluginManusDebugCollector(),
+  vitePluginOptionalAnalytics(),
+];
 
 export default defineConfig({
   plugins,

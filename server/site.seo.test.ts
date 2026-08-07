@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { render } from "../client/src/entry-server";
 import { buildHeadTags } from "../client/src/ssr/head";
 import { SERVICES } from "../client/src/data/services";
+import { getOptionalAnalyticsTag } from "../vite.config";
 import {
   BOOKING_URL,
   LOCAL_BUSINESS_JSON_LD,
@@ -68,6 +69,37 @@ describe("repository-owned Panache media", () => {
       expect(fs.readFileSync(path.resolve(process.cwd(), source), "utf8")).not.toContain(
         "/manus-storage/"
       );
+    });
+  });
+});
+
+describe("optional Manus analytics", () => {
+  const indexTemplate = fs.readFileSync(
+    path.resolve(process.cwd(), "client/index.html"),
+    "utf8"
+  );
+
+  it("keeps an unconfigured build free of analytics placeholders and malformed URLs", () => {
+    expect(getOptionalAnalyticsTag(undefined, undefined)).toBeNull();
+    expect(getOptionalAnalyticsTag("", "website-id")).toBeNull();
+    expect(getOptionalAnalyticsTag("https://analytics.example", "")).toBeNull();
+    expect(indexTemplate).not.toContain("%VITE_ANALYTICS_ENDPOINT%");
+    expect(indexTemplate).not.toContain("%VITE_ANALYTICS_WEBSITE_ID%");
+    expect(indexTemplate).not.toMatch(/src=["'][^"']*%VITE_ANALYTICS_ENDPOINT%[^"']*["']/);
+  });
+
+  it("creates exactly one configured Manus-compatible analytics script", () => {
+    expect(
+      getOptionalAnalyticsTag("https://analytics.example/", "website-id")
+    ).toEqual({
+      tag: "script",
+      attrs: {
+        defer: true,
+        src: "https://analytics.example/umami",
+        "data-website-id": "website-id",
+        "data-panache-analytics": "true",
+      },
+      injectTo: "body",
     });
   });
 });
